@@ -1,14 +1,29 @@
 const express = require("express");
-const { createCourseRoute } = require("./course");
-const { createUserRoute } = require("./user");
+const mongoose = require("mongoose");
+const { userRouter } = require("./routes/users");
+const { adminRouter } = require("./routes/admin");
+const { courseRouter } = require("./routes/course")
+
+
+
+
+
 const app = express();
+app.use(express.json());
 
 
-app.use("/user", userRouter);
-app.use("/course", courseRouter);
-
-createCourseRoute(app);
-createUserRoute(app);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/course", courseRouter);
 
 
-app.listen(3000);
+
+async function main(){
+	await mongoose.connect('mongodb+srv://aryanmane890000:aryanmane@cluster0.84pct.mongodb.net/course-era');
+	app.listen(3000);
+	console.log("listening on port 3000");
+}
+
+main()
+
+

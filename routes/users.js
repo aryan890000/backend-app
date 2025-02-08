@@ -5,18 +5,18 @@ const userRouter = Router();
 
 function createUserRoute(app){
 
-app.post("/signup", function(req, res){
+	userRouter.post("/signup", function(req, res){
 	json.send({
 		message: "signup endpoint"
 	})
 })
 
-app.post("/signin	", function(req, res){
+userRouter.post("/signin	", function(req, res){
 
 })
 
 
-app.post("/purchases", function(req, res){
+userRouter.post("/purchases", function(req, res){
 
 })
 }

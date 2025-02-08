@@ -3,10 +3,10 @@ const { Router } = require("express");
 
 const courseRouter = Router();
 
-app.post("/course/purchase", function(req, res){
+courseRouter.post("/purchase", function(req, res){
 
 })
-app.post("/courses", function(req, res){
+courseRouter.post("/preview", function(req, res){
 
 })
 
