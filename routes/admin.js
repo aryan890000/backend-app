@@ -1,8 +1,9 @@
 const Router = require("express");
 const jwt = require("jsonwebtoken");
-const JWT_ADMIN_PASSWORD = "manemane"
 
-const { adminsModel } = require("../db");
+const {JWT_ADMIN_PASSWORD}  = require("../config");
+const { adminsModel, courseModel } = require("../db");
+const { adminMiddleware } = require("../middleware/admin");
 const adminRouter = Router();
 
 
@@ -48,25 +49,63 @@ adminRouter.post("/signin", async function(req, res){
 }
 })
 
-adminRouter.post("/course", function(req, res){
+adminRouter.post("/course",adminMiddleware, async function(req, res){
+	const adminId =  req.userId;
+
+	const { title, description, imageUrl, price } =  req.body;
+
+	await courseModel.create({
+		title, description, imageUrl, price , creatorId	: adminId
+	})
 	json.send({
-		message: "signup endpoint"
+		message: "course created",
+		courseId : course._id
 	})
 })
 
 
 
-adminRouter.put("/course", function(req, res){
-	json.send({
-		message: "signup endpoint"
+adminRouter.put("/course", adminMiddleware, async function(req, res){
+
+	const adminId = req.userId;
+	const { title, description, imageUrl, price, courseId } = req.body;
+
+	const course = await courseModel.updateOne({
+		_id : courseId,
+		creatorId : adminId
+	}, {
+		title : title,
+		description : description,
+		imageUrl : imageUrl,
+		price : price
+	})
+
+
+
+
+
+
+	json.json({
+		message: "course updated",
+		courseId : course._id
+		 			
 	})
 })
 
 
-adminRouter.get("/course/bulk", function(req, res){
-	json.send({
-		message: "signup endpoint"
+adminRouter.get("/course/bulk",adminMiddleware,  async function(req, res){
+	const adminId = req.userId;
+	const { title, description, imageUrl, price, courseId } = req.body;
+
+	const courses = await courseModel.find({
+		creatorId : adminId
 	})
+	res.json({
+		message : "courses	",
+		courses
+	})
+
+
 })
 
 
