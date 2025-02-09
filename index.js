@@ -8,7 +8,7 @@ const { courseRouter } = require("./routes/course")
 
 
 
-const app = express();
+const app = express();	
 app.use(express.json());
 
 
@@ -19,11 +19,15 @@ app.use("/api/v1/course", courseRouter);
 
 
 async function main(){
-	await mongoose.connect('mongodb+srv://aryanmane890000:aryanmane@cluster0.84pct.mongodb.net/course-era');
+	await mongoose.connect('mongodb+srv://aryanmane890000:aryanmane7@cluster0.84pct.mongodb.net/course-era');
 	app.listen(3000);
 	console.log("listening on port 3000");
 }
 
+
+
+
 main()
+
 
 

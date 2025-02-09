@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+
 console.log("connnected to db");
-mongoose.connect('mongodb+srv://aryanmane890000:aryanmane7@cluster0.84pct.mongodb.net/course-era');
+
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -13,7 +14,7 @@ const userSchema = new Schema({
 });
 
 
-const adminSchema = new Schema({
+const adminsSchema = new Schema({
 	email : { type : String , unique : true},
 	password : String,
 	firstName : String,
@@ -38,6 +39,14 @@ const purchaseSchema = new Schema({
 
 
 const userModel = mongoose.model("user", userSchema);
-const adminModel = mongoose.model("admin", userSchema);
-const courseModel = mongoose.model("course", userSchema);
-const purchaseModel = mongoose.model("purchase", userSchema);
+const adminsModel = mongoose.model("admins", adminsSchema);
+const courseModel = mongoose.model("course", courseSchema);
+const purchaseModel = mongoose.model("purchase", purchaseSchema);
+
+
+module.exports = {
+	userModel,
+	adminsModel,
+	courseModel,
+	purchaseModel
+}
